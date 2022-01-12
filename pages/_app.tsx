@@ -2,6 +2,7 @@ import type { NextPage } from "next"
 import type { AppProps } from "next/app"
 import Head from "next/head"
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client"
+import "@fontsource/roboto"
 import "../styles/globals.css"
 
 const client = new ApolloClient({
