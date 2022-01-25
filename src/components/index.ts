@@ -1,0 +1,5 @@
+export { StickyHeader } from "./StickyHeader"
+export { Filters } from "./Filters"
+export { SearchGame } from "./Search"
+export { GamesContainer } from "./GamesContainer"
+export { GameCard } from "./GameCard"
