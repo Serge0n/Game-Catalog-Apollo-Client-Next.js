@@ -1,4 +1,10 @@
-import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/material"
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Typography,
+} from "@mui/material"
 import { FC } from "react"
 
 export const GameCard: FC = () => {
