@@ -1,6 +1,6 @@
-import { Grid, Box, BoxProps } from "@mui/material"
-import { GameCard } from "."
 import { FC } from "react"
+import { Grid, Box, BoxProps } from "@mui/material"
+import { GameCard } from "../components"
 
 export const GamesContainer: FC<BoxProps> = props => {
   return (

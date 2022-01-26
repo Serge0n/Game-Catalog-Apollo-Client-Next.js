@@ -1,3 +1,4 @@
+import { FC } from "react"
 import {
   Accordion,
   AccordionDetails,
@@ -7,7 +8,6 @@ import {
   Typography,
 } from "@mui/material"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import { FC } from "react"
 
 export const Filters: FC<BoxProps> = props => {
   return (

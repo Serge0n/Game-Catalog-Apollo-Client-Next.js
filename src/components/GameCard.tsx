@@ -1,3 +1,4 @@
+import { FC } from "react"
 import {
   Card,
   CardActionArea,
@@ -5,7 +6,6 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material"
-import { FC } from "react"
 
 export const GameCard: FC = () => {
   return (
