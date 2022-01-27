@@ -1,4 +1,4 @@
-import { NextPage } from "next"
+import { NextPage, InferGetServerSidePropsType } from "next"
 import { Box } from "@mui/material"
 import {
   SearchGame,
@@ -6,8 +6,35 @@ import {
   GamesContainer,
   StickyHeader,
 } from "../components"
+import {
+  AllGamesDocument,
+  AllGamesQuery,
+  AllGamesQueryVariables,
+} from "../../generated/schema"
+import { client } from "./_app"
 
-const Home: NextPage = () => {
+export const getServerSideProps = async () => {
+  try {
+    const { data } = await client.query<AllGamesQuery, AllGamesQueryVariables>({
+      query: AllGamesDocument,
+      variables: {
+        limit: 10,
+        platformId: 6,
+        sortField: "rating_count",
+        sortDir: "desc",
+      },
+    })
+    return { props: { games: data?.games } }
+  } catch {
+    return {
+      props: { games: null },
+    }
+  }
+}
+
+const Home: NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = ({ games }) => {
   return (
     <>
       <StickyHeader />
@@ -21,7 +48,7 @@ const Home: NextPage = () => {
           my={2}
         />
         <Filters my={2} />
-        <GamesContainer pt={2} />
+        <GamesContainer pt={2} games={games} />
       </Box>
     </>
   )

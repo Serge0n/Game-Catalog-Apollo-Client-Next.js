@@ -1,32 +1,30 @@
 import { FC } from "react"
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material"
+import { Box, Card, CardMedia, Typography } from "@mui/material"
+interface GameCardProps {
+  name?: string
+  coverId?: string
+}
 
-export const GameCard: FC = () => {
+export const GameCard: FC<GameCardProps> = ({ name, coverId }) => {
+  const IMAGE_URL = `https://images.igdb.com/igdb/image/upload/t_screenshot_med_2x/${coverId}.jpg`
+
   return (
-    <Card sx={{ minWidth: 280, minHeight: 300 }}>
-      <CardActionArea>
+    <Card>
+      <Box sx={{ overflow: "hidden" }}>
         <CardMedia
           component="img"
-          height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
-          alt="green iguana"
+          image={IMAGE_URL}
+          alt={name}
+          sx={{
+            width: "100%",
+            "&:hover": { transform: "scale(1.1)" },
+            transition: "transform .3s",
+          }}
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Lizard
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+      </Box>
+      <Typography component="div" sx={{ p: 0.5 }}>
+        {name}
+      </Typography>
     </Card>
   )
 }

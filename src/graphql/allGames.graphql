@@ -1,4 +1,4 @@
-query AllGamesQuery(
+query AllGames(
   $limit: Int
   $platformId: Int
   $sortField: String
@@ -22,7 +22,7 @@ query AllGamesQuery(
     rating_count
     url
     cover {
-      url
+      image_id
     }
     platforms {
       id

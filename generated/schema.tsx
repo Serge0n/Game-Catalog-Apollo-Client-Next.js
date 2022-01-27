@@ -23,25 +23,25 @@ export type Scalars = {
 
 export type AgeRating = {
   __typename?: "AgeRating"
-  category?: Maybe<Scalars["String"]>
-  rating?: Maybe<Scalars["String"]>
+  category: Scalars["String"]
+  rating: Scalars["String"]
 }
 
 export type Cover = {
   __typename?: "Cover"
-  url?: Maybe<Scalars["String"]>
+  image_id: Scalars["String"]
 }
 
 export type Game = {
   __typename?: "Game"
   age_ratings?: Maybe<Array<Maybe<AgeRating>>>
-  cover?: Maybe<Cover>
-  first_release_date?: Maybe<Scalars["Int"]>
+  cover: Cover
+  first_release_date: Scalars["Int"]
   game_engines?: Maybe<Array<Maybe<GameEngine>>>
   game_modes?: Maybe<Array<Maybe<GameMode>>>
   genres?: Maybe<Array<Maybe<Genre>>>
-  id?: Maybe<Scalars["Int"]>
-  name?: Maybe<Scalars["String"]>
+  id: Scalars["Int"]
+  name: Scalars["String"]
   platforms?: Maybe<Array<Maybe<Platform>>>
   rating?: Maybe<Scalars["Float"]>
   rating_count?: Maybe<Scalars["Int"]>
@@ -52,24 +52,24 @@ export type Game = {
 
 export type GameEngine = {
   __typename?: "GameEngine"
-  name?: Maybe<Scalars["String"]>
+  name: Scalars["String"]
 }
 
 export type GameMode = {
   __typename?: "GameMode"
-  name?: Maybe<Scalars["String"]>
+  name: Scalars["String"]
 }
 
 export type Genre = {
   __typename?: "Genre"
-  id?: Maybe<Scalars["Int"]>
-  name?: Maybe<Scalars["String"]>
+  id: Scalars["Int"]
+  name: Scalars["String"]
 }
 
 export type Platform = {
   __typename?: "Platform"
-  abbreviation?: Maybe<Scalars["String"]>
-  id?: Maybe<Scalars["Int"]>
+  abbreviation: Scalars["String"]
+  id: Scalars["Int"]
 }
 
 export type Query = {
@@ -91,8 +91,8 @@ export type QueryGamesArgs = {
 
 export type ReleaseDate = {
   __typename?: "ReleaseDate"
-  date?: Maybe<Scalars["String"]>
-  platform?: Maybe<Scalars["String"]>
+  date: Scalars["String"]
+  platform: Scalars["String"]
 }
 
 export type User = {
@@ -102,48 +102,41 @@ export type User = {
   password: Scalars["String"]
 }
 
-export type AllGamesQueryQueryVariables = Exact<{
+export type AllGamesQueryVariables = Exact<{
   limit?: InputMaybe<Scalars["Int"]>
   platformId?: InputMaybe<Scalars["Int"]>
   sortField?: InputMaybe<Scalars["String"]>
   sortDir?: InputMaybe<Scalars["String"]>
 }>
 
-export type AllGamesQueryQuery = {
+export type AllGamesQuery = {
   __typename?: "Query"
   games?:
     | Array<
         | {
             __typename?: "Game"
-            id?: number | null | undefined
-            name?: string | null | undefined
-            first_release_date?: number | null | undefined
+            id: number
+            name: string
+            first_release_date: number
             rating?: number | null | undefined
             total_rating?: number | null | undefined
             rating_count?: number | null | undefined
             url?: string | null | undefined
             genres?:
               | Array<
-                  | {
-                      __typename?: "Genre"
-                      id?: number | null | undefined
-                      name?: string | null | undefined
-                    }
+                  | { __typename?: "Genre"; id: number; name: string }
                   | null
                   | undefined
                 >
               | null
               | undefined
-            cover?:
-              | { __typename?: "Cover"; url?: string | null | undefined }
-              | null
-              | undefined
+            cover: { __typename?: "Cover"; image_id: string }
             platforms?:
               | Array<
                   | {
                       __typename?: "Platform"
-                      id?: number | null | undefined
-                      abbreviation?: string | null | undefined
+                      id: number
+                      abbreviation: string
                     }
                   | null
                   | undefined
@@ -154,8 +147,8 @@ export type AllGamesQueryQuery = {
               | Array<
                   | {
                       __typename?: "AgeRating"
-                      category?: string | null | undefined
-                      rating?: string | null | undefined
+                      category: string
+                      rating: string
                     }
                   | null
                   | undefined
@@ -164,23 +157,13 @@ export type AllGamesQueryQuery = {
               | undefined
             game_engines?:
               | Array<
-                  | {
-                      __typename?: "GameEngine"
-                      name?: string | null | undefined
-                    }
-                  | null
-                  | undefined
+                  { __typename?: "GameEngine"; name: string } | null | undefined
                 >
               | null
               | undefined
             game_modes?:
               | Array<
-                  | {
-                      __typename?: "GameMode"
-                      name?: string | null | undefined
-                    }
-                  | null
-                  | undefined
+                  { __typename?: "GameMode"; name: string } | null | undefined
                 >
               | null
               | undefined
@@ -188,8 +171,8 @@ export type AllGamesQueryQuery = {
               | Array<
                   | {
                       __typename?: "ReleaseDate"
-                      date?: string | null | undefined
-                      platform?: string | null | undefined
+                      date: string
+                      platform: string
                     }
                   | null
                   | undefined
@@ -204,8 +187,8 @@ export type AllGamesQueryQuery = {
     | undefined
 }
 
-export const AllGamesQueryDocument = gql`
-  query AllGamesQuery(
+export const AllGamesDocument = gql`
+  query AllGames(
     $limit: Int
     $platformId: Int
     $sortField: String
@@ -229,7 +212,7 @@ export const AllGamesQueryDocument = gql`
       rating_count
       url
       cover {
-        url
+        image_id
       }
       platforms {
         id
@@ -254,16 +237,16 @@ export const AllGamesQueryDocument = gql`
 `
 
 /**
- * __useAllGamesQueryQuery__
+ * __useAllGamesQuery__
  *
- * To run a query within a React component, call `useAllGamesQueryQuery` and pass it any options that fit your needs.
- * When your component renders, `useAllGamesQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useAllGamesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllGamesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useAllGamesQueryQuery({
+ * const { data, loading, error } = useAllGamesQuery({
  *   variables: {
  *      limit: // value for 'limit'
  *      platformId: // value for 'platformId'
@@ -272,37 +255,32 @@ export const AllGamesQueryDocument = gql`
  *   },
  * });
  */
-export function useAllGamesQueryQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    AllGamesQueryQuery,
-    AllGamesQueryQueryVariables
-  >
+export function useAllGamesQuery(
+  baseOptions?: Apollo.QueryHookOptions<AllGamesQuery, AllGamesQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<AllGamesQueryQuery, AllGamesQueryQueryVariables>(
-    AllGamesQueryDocument,
+  return Apollo.useQuery<AllGamesQuery, AllGamesQueryVariables>(
+    AllGamesDocument,
     options
   )
 }
-export function useAllGamesQueryLazyQuery(
+export function useAllGamesLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    AllGamesQueryQuery,
-    AllGamesQueryQueryVariables
+    AllGamesQuery,
+    AllGamesQueryVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<AllGamesQueryQuery, AllGamesQueryQueryVariables>(
-    AllGamesQueryDocument,
+  return Apollo.useLazyQuery<AllGamesQuery, AllGamesQueryVariables>(
+    AllGamesDocument,
     options
   )
 }
-export type AllGamesQueryQueryHookResult = ReturnType<
-  typeof useAllGamesQueryQuery
+export type AllGamesQueryHookResult = ReturnType<typeof useAllGamesQuery>
+export type AllGamesLazyQueryHookResult = ReturnType<
+  typeof useAllGamesLazyQuery
 >
-export type AllGamesQueryLazyQueryHookResult = ReturnType<
-  typeof useAllGamesQueryLazyQuery
->
-export type AllGamesQueryQueryResult = Apollo.QueryResult<
-  AllGamesQueryQuery,
-  AllGamesQueryQueryVariables
+export type AllGamesQueryResult = Apollo.QueryResult<
+  AllGamesQuery,
+  AllGamesQueryVariables
 >
