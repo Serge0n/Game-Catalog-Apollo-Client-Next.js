@@ -18,7 +18,7 @@ export const getServerSideProps = async () => {
     const { data } = await client.query<AllGamesQuery, AllGamesQueryVariables>({
       query: AllGamesDocument,
       variables: {
-        limit: 10,
+        limit: 17,
         platformId: 6,
         sortField: "rating_count",
         sortDir: "desc",
@@ -39,14 +39,7 @@ const Home: NextPage<
     <>
       <StickyHeader />
       <Box px={2} mx="auto">
-        <SearchGame
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
-          my={2}
-        />
+        <SearchGame sx={{ display: "flex", justifyContent: "center" }} my={2} />
         <Filters my={2} />
         <GamesContainer pt={2} games={games} />
       </Box>
