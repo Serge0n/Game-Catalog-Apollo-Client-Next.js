@@ -16,57 +16,65 @@ const Auth: NextPage = () => {
   return (
     <Container maxWidth="xs">
       <Box
-        component="form"
         height="100vh"
         sx={{
-          "& .MuiTextField-root": { my: 1 },
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          alignItems: "center",
         }}
-        noValidate
-        autoComplete="off"
       >
-        <TabContext value={value}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab label="Sing Up" value="Sing Up" />
-            <Tab label="Sing In" value="Sing In" />
-          </TabList>
+        <Box
+          component="form"
+          noValidate
+          autoComplete="off"
+          height={380}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            "& .MuiTextField-root": { my: 1 },
+          }}
+        >
+          <TabContext value={value}>
+            <TabList onChange={handleChange}>
+              <Tab label="Sing Up" value="Sing Up" />
+              <Tab label="Sing In" value="Sing In" />
+            </TabList>
 
-          <TabPanel value="Sing Up">
-            <TextField label="Name" fullWidth required />
-            <TextField label="Email" fullWidth required />
-            <TextField label="Password" type="password" fullWidth required />
-            <Link href="/">
-              <Button
-                fullWidth
-                size="large"
-                variant="contained"
-                disableElevation
-                sx={{ my: 1 }}
-              >
-                Sing Up
-              </Button>
-            </Link>
-          </TabPanel>
+            <TabPanel value="Sing Up">
+              <TextField label="Name" fullWidth required />
+              <TextField label="Email" fullWidth required />
+              <TextField label="Password" type="password" fullWidth required />
+              <Link href="/">
+                <Button
+                  sx={{ my: 1 }}
+                  variant="contained"
+                  size="large"
+                  disableElevation
+                  fullWidth
+                >
+                  Sing Up
+                </Button>
+              </Link>
+            </TabPanel>
 
-          <TabPanel value="Sing In">
-            <TextField label="Name" fullWidth required />
-            <TextField label="Password" type="password" fullWidth required />
-            <Link href="/">
-              <Button
-                sx={{ my: 1 }}
-                variant="contained"
-                size="large"
-                disableElevation
-                fullWidth
-              >
-                Sing In
-              </Button>
-            </Link>
-          </TabPanel>
-        </TabContext>
+            <TabPanel value="Sing In">
+              <TextField label="Name" fullWidth required />
+              <TextField label="Password" type="password" fullWidth required />
+              <Link href="/">
+                <Button
+                  sx={{ my: 1 }}
+                  variant="contained"
+                  size="large"
+                  disableElevation
+                  fullWidth
+                >
+                  Sing In
+                </Button>
+              </Link>
+            </TabPanel>
+          </TabContext>
+        </Box>
       </Box>
     </Container>
   )
