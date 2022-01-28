@@ -4,7 +4,7 @@ import { GameCard } from "../components"
 import { AllGamesQuery } from "../../generated/schema"
 
 interface GamesContainerProps extends BoxProps {
-  games: AllGamesQuery["games"]
+  games: NonNullable<AllGamesQuery["games"]>
 }
 
 export const GamesContainer: FC<GamesContainerProps> = ({ games }, ...rest) => {
@@ -16,11 +16,14 @@ export const GamesContainer: FC<GamesContainerProps> = ({ games }, ...rest) => {
         spacing={1}
         columns={{ xs: 4, sm: 8, md: 12, lg: 12, xl: 10 }}
       >
-        {games?.map((game, index) => (
-          <Grid item xs={4} sm={4} md={4} lg={3} xl={2} key={index}>
-            <GameCard name={game?.name} coverId={game?.cover.image_id} />
-          </Grid>
-        ))}
+        {games?.map((game, index) => {
+          if (!game) return
+          return (
+            <Grid item xs={4} sm={4} md={4} lg={3} xl={2} key={index}>
+              <GameCard game={game} />
+            </Grid>
+          )
+        })}
       </Grid>
     </Box>
   )

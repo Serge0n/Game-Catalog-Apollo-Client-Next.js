@@ -24,17 +24,22 @@ export const getServerSideProps = async () => {
         sortDir: "desc",
       },
     })
-    return { props: { games: data?.games } }
+
+    if (!data?.games) return { props: { notFound: true } }
+
+    return { props: { games: data.games } }
   } catch {
-    return {
-      props: { games: null },
-    }
+    return { props: { notFound: true } }
   }
 }
 
-const Home: NextPage<
-  InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ games }) => {
+interface HomeProps {
+  games: NonNullable<
+    InferGetServerSidePropsType<typeof getServerSideProps>["games"]
+  >
+}
+
+const Home: NextPage<HomeProps> = ({ games }) => {
   return (
     <>
       <StickyHeader />

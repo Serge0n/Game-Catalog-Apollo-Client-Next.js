@@ -1,0 +1,36 @@
+query Game($gameId: Int) {
+  game(id: $gameId) {
+    id
+    name
+    first_release_date
+    genres {
+      id
+      name
+    }
+    rating
+    total_rating
+    rating_count
+    url
+    cover {
+      image_id
+    }
+    platforms {
+      id
+      abbreviation
+    }
+    age_ratings {
+      category
+      rating
+    }
+    game_engines {
+      name
+    }
+    game_modes {
+      name
+    }
+    release_dates {
+      date
+      platform
+    }
+  }
+}
