@@ -1,15 +1,5 @@
-query AllGames(
-  $limit: Int
-  $platformId: Int
-  $sortField: String
-  $sortDir: String
-) {
-  games(
-    limit: $limit
-    platformId: $platformId
-    sortField: $sortField
-    sortDir: $sortDir
-  ) {
+query AllGames($limit: Int, $platformId: Int, $sortField: String, $sortDir: String) {
+  games(limit: $limit, platformId: $platformId, sortField: $sortField, sortDir: $sortDir) {
     id
     name
     first_release_date
