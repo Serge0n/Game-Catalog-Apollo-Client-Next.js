@@ -1,4 +1,5 @@
 import { NextPage, InferGetServerSidePropsType } from "next"
+import Head from "next/head"
 import { Box } from "@mui/material"
 import {
   SearchGame,
@@ -18,7 +19,7 @@ export const getServerSideProps = async () => {
     const { data } = await client.query<AllGamesQuery, AllGamesQueryVariables>({
       query: AllGamesDocument,
       variables: {
-        limit: 17,
+        limit: 12,
         platformId: 6,
         sortField: "rating_count",
         sortDir: "desc",
@@ -42,11 +43,14 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = ({ games }) => {
   return (
     <>
+      <Head>
+        <title>Home</title>
+      </Head>
       <StickyHeader />
       <Box px={2} mx="auto">
         <SearchGame sx={{ display: "flex", justifyContent: "center" }} my={2} />
         <Filters my={2} />
-        <GamesContainer pt={2} games={games} />
+        <GamesContainer games={games} />
       </Box>
     </>
   )

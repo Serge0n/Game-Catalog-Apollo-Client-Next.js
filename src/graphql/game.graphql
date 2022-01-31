@@ -4,6 +4,11 @@ query Game($gameId: Int) {
     name
     slug
     first_release_date
+    storyline
+    summary
+    screenshots {
+      image_id
+    }
     genres {
       id
       name

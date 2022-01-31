@@ -11,7 +11,8 @@ import {
   GameDocument,
 } from "../../../generated/schema"
 import { client } from "../_app"
-import Image from "next/image"
+import Head from "next/head"
+import { GameCarousel } from "../../components/GameCarousel"
 
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
@@ -37,15 +38,27 @@ interface GameProps {
 }
 
 const Game: NextPage<GameProps> = ({ game }) => {
-  const IMAGE_URL = `https://images.igdb.com/igdb/image/upload/t_1080p/${game.cover.image_id}.jpg`
-
   return (
     <>
+      <Head>
+        <title>{game.name}</title>
+      </Head>
       <StickyHeader />
-      <Box px={2} mx="auto">
-        <Image src={IMAGE_URL} width={500} height={500} />
-        <Typography component="div" sx={{ p: 0.5 }}>
+      <Box
+        height="100vh"
+        px={2}
+        mx="auto"
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
+        <Typography variant="h5" py={2}>
           {game.name}
+        </Typography>
+        <GameCarousel screenshotIds={game.screenshots} maxWidth={1300} />
+        <Typography variant="subtitle1" mx={5} p={1}>
+          {game.summary}
+        </Typography>
+        <Typography variant="subtitle1" mx={5} p={1}>
+          {game.storyline}
         </Typography>
       </Box>
     </>
