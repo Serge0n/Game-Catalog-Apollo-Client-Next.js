@@ -2,6 +2,7 @@ query AllGames($limit: Int, $platformId: Int, $sortField: String, $sortDir: Stri
   games(limit: $limit, platformId: $platformId, sortField: $sortField, sortDir: $sortDir) {
     id
     name
+    slug
     first_release_date
     genres {
       id

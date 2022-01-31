@@ -2,6 +2,7 @@ query Game($gameId: Int) {
   game(id: $gameId) {
     id
     name
+    slug
     first_release_date
     genres {
       id

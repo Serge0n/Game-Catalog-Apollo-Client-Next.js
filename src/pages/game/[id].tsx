@@ -38,7 +38,7 @@ interface GameProps {
 
 const Game: NextPage<GameProps> = ({ game }) => {
   const IMAGE_URL = `https://images.igdb.com/igdb/image/upload/t_1080p/${game.cover.image_id}.jpg`
-  console.log(game)
+
   return (
     <>
       <StickyHeader />
