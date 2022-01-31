@@ -26,31 +26,28 @@ export type Cover = {
   image_id: Scalars['String'];
 };
 
-export type Game = {
+export type Game = IGame & {
   __typename?: 'Game';
-  age_ratings?: Maybe<Array<Maybe<AgeRating>>>;
-  cover: Cover;
-  first_release_date: Scalars['Int'];
-  game_engines?: Maybe<Array<Maybe<GameEngine>>>;
-  game_modes?: Maybe<Array<Maybe<GameMode>>>;
-  genres?: Maybe<Array<Maybe<Genre>>>;
   id: Scalars['Int'];
   name: Scalars['String'];
-  platforms?: Maybe<Array<Maybe<Platform>>>;
-  rating?: Maybe<Scalars['Float']>;
-  rating_count?: Maybe<Scalars['Int']>;
-  release_dates?: Maybe<Array<Maybe<ReleaseDate>>>;
-  screenshots?: Maybe<Array<Maybe<Screenshot>>>;
-  slug: Scalars['String'];
+  screenshots: Array<Maybe<Screenshot>>;
   storyline: Scalars['String'];
   summary: Scalars['String'];
-  total_rating?: Maybe<Scalars['Float']>;
-  url?: Maybe<Scalars['String']>;
 };
 
 export type GameEngine = {
   __typename?: 'GameEngine';
   name: Scalars['String'];
+};
+
+export type GameListItem = IGame & {
+  __typename?: 'GameListItem';
+  cover: Cover;
+  first_release_date: Scalars['Int'];
+  id: Scalars['Int'];
+  name: Scalars['String'];
+  slug: Scalars['String'];
+  total_rating?: Maybe<Scalars['Float']>;
 };
 
 export type GameMode = {
@@ -64,6 +61,11 @@ export type Genre = {
   name: Scalars['String'];
 };
 
+export type IGame = {
+  id: Scalars['Int'];
+  name: Scalars['String'];
+};
+
 export type Platform = {
   __typename?: 'Platform';
   abbreviation: Scalars['String'];
@@ -73,7 +75,7 @@ export type Platform = {
 export type Query = {
   __typename?: 'Query';
   game?: Maybe<Game>;
-  games?: Maybe<Array<Maybe<Game>>>;
+  games?: Maybe<Array<Maybe<GameListItem>>>;
 };
 
 
@@ -115,14 +117,14 @@ export type AllGamesQueryVariables = Exact<{
 }>;
 
 
-export type AllGamesQuery = { __typename?: 'Query', games?: Array<{ __typename?: 'Game', id: number, name: string, slug: string, first_release_date: number, rating?: number | null | undefined, total_rating?: number | null | undefined, rating_count?: number | null | undefined, url?: string | null | undefined, genres?: Array<{ __typename?: 'Genre', id: number, name: string } | null | undefined> | null | undefined, cover: { __typename?: 'Cover', image_id: string }, platforms?: Array<{ __typename?: 'Platform', id: number, abbreviation: string } | null | undefined> | null | undefined, age_ratings?: Array<{ __typename?: 'AgeRating', category: string, rating: string } | null | undefined> | null | undefined, game_engines?: Array<{ __typename?: 'GameEngine', name: string } | null | undefined> | null | undefined, game_modes?: Array<{ __typename?: 'GameMode', name: string } | null | undefined> | null | undefined, release_dates?: Array<{ __typename?: 'ReleaseDate', date: string, platform: string } | null | undefined> | null | undefined } | null | undefined> | null | undefined };
+export type AllGamesQuery = { __typename?: 'Query', games?: Array<{ __typename?: 'GameListItem', id: number, name: string, slug: string, first_release_date: number, total_rating?: number | null | undefined, cover: { __typename?: 'Cover', image_id: string } } | null | undefined> | null | undefined };
 
 export type GameQueryVariables = Exact<{
   gameId?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type GameQuery = { __typename?: 'Query', game?: { __typename?: 'Game', id: number, name: string, slug: string, first_release_date: number, storyline: string, summary: string, rating?: number | null | undefined, total_rating?: number | null | undefined, rating_count?: number | null | undefined, url?: string | null | undefined, screenshots?: Array<{ __typename?: 'Screenshot', image_id: string } | null | undefined> | null | undefined, genres?: Array<{ __typename?: 'Genre', id: number, name: string } | null | undefined> | null | undefined, cover: { __typename?: 'Cover', image_id: string }, platforms?: Array<{ __typename?: 'Platform', id: number, abbreviation: string } | null | undefined> | null | undefined, age_ratings?: Array<{ __typename?: 'AgeRating', category: string, rating: string } | null | undefined> | null | undefined, game_engines?: Array<{ __typename?: 'GameEngine', name: string } | null | undefined> | null | undefined, game_modes?: Array<{ __typename?: 'GameMode', name: string } | null | undefined> | null | undefined, release_dates?: Array<{ __typename?: 'ReleaseDate', date: string, platform: string } | null | undefined> | null | undefined } | null | undefined };
+export type GameQuery = { __typename?: 'Query', game?: { __typename?: 'Game', id: number, name: string, storyline: string, summary: string, screenshots: Array<{ __typename?: 'Screenshot', image_id: string } | null | undefined> } | null | undefined };
 
 
 export const AllGamesDocument = gql`
@@ -137,34 +139,9 @@ export const AllGamesDocument = gql`
     name
     slug
     first_release_date
-    genres {
-      id
-      name
-    }
-    rating
     total_rating
-    rating_count
-    url
     cover {
       image_id
-    }
-    platforms {
-      id
-      abbreviation
-    }
-    age_ratings {
-      category
-      rating
-    }
-    game_engines {
-      name
-    }
-    game_modes {
-      name
-    }
-    release_dates {
-      date
-      platform
     }
   }
 }
@@ -205,41 +182,10 @@ export const GameDocument = gql`
   game(id: $gameId) {
     id
     name
-    slug
-    first_release_date
     storyline
     summary
     screenshots {
       image_id
-    }
-    genres {
-      id
-      name
-    }
-    rating
-    total_rating
-    rating_count
-    url
-    cover {
-      image_id
-    }
-    platforms {
-      id
-      abbreviation
-    }
-    age_ratings {
-      category
-      rating
-    }
-    game_engines {
-      name
-    }
-    game_modes {
-      name
-    }
-    release_dates {
-      date
-      platform
     }
   }
 }

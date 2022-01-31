@@ -22,7 +22,7 @@ export const getServerSideProps = async (
       query: GameDocument,
       variables: { gameId: Number(context?.params?.id) },
     })
-    console.log(data)
+
     if (!data?.game) return { props: { notFound: true } }
 
     return { props: { game: data.game } }
