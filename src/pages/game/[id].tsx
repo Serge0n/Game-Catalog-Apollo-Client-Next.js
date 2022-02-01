@@ -10,13 +10,14 @@ import {
   GameQueryVariables,
   GameDocument,
 } from "../../../generated/schema"
-import { client } from "../_app"
 import Head from "next/head"
 import { GameCarousel } from "../../components/GameCarousel"
+import { initializeApollo } from "../../lib/apolloClient"
 
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
+  const client = initializeApollo()
   try {
     const { data } = await client.query<GameQuery, GameQueryVariables>({
       query: GameDocument,

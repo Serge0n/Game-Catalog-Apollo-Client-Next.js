@@ -1,26 +1,16 @@
 import type { NextPage } from "next"
 import type { AppProps } from "next/app"
 import Head from "next/head"
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-} from "@apollo/client"
+import { ApolloProvider } from "@apollo/client"
 import "@fontsource/roboto"
 import "../../styles/globals.css"
-
-export const client = new ApolloClient({
-  ssrMode: true,
-  link: createHttpLink({
-    uri: "http://localhost:4000",
-  }),
-  cache: new InMemoryCache(),
-})
+import { useApollo } from "../lib/apolloClient"
 
 const App: NextPage<AppProps> = ({ Component, pageProps }) => {
+  const apolloClient = useApollo(pageProps.initialApolloState)
+
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <Head>
         <title>Game Catalog</title>
         <link rel="icon" href="/logo.png" />

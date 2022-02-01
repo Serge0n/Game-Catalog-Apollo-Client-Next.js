@@ -12,9 +12,10 @@ import {
   AllGamesQuery,
   AllGamesQueryVariables,
 } from "../../generated/schema"
-import { client } from "./_app"
+import { initializeApollo } from "../lib/apolloClient"
 
 export const getServerSideProps = async () => {
+  const client = initializeApollo()
   try {
     const { data } = await client.query<AllGamesQuery, AllGamesQueryVariables>({
       query: AllGamesDocument,
