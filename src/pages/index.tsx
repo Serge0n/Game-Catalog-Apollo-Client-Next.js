@@ -1,4 +1,4 @@
-import { NextPage, InferGetServerSidePropsType } from "next"
+import { NextPage } from "next"
 import Head from "next/head"
 import { Box } from "@mui/material"
 import {
@@ -12,7 +12,7 @@ import {
   AllGamesQuery,
   AllGamesQueryVariables,
 } from "../../generated/schema"
-import { initializeApollo } from "../lib/apolloClient"
+import { addApolloState, initializeApollo } from "../lib/apolloClient"
 
 export const getServerSideProps = async () => {
   const client = initializeApollo()
@@ -27,18 +27,17 @@ export const getServerSideProps = async () => {
       },
     })
 
-    if (!data?.games) return { props: { notFound: true } }
+    if (!data?.games)
+      return addApolloState(client, { props: { notFound: true } })
 
-    return { props: { games: data.games } }
+    return addApolloState(client, { props: { games: data.games } })
   } catch {
-    return { props: { notFound: true } }
+    return addApolloState(client, { props: { notFound: true } })
   }
 }
 
 interface HomeProps {
-  games: NonNullable<
-    InferGetServerSidePropsType<typeof getServerSideProps>["games"]
-  >
+  games: NonNullable<AllGamesQuery["games"]>
 }
 
 const Home: NextPage<HomeProps> = ({ games }) => {

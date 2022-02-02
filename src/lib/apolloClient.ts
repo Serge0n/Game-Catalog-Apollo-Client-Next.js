@@ -6,6 +6,9 @@ import {
   NormalizedCacheObject,
   createHttpLink,
 } from "@apollo/client"
+import { AppProps } from "next/app"
+
+export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__"
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined
 
@@ -14,7 +17,9 @@ export type ResolverContext = {
   res?: ServerResponse
 }
 
-function createApolloClient() {
+const createApolloClient = () => {
+  console.log(typeof window)
+
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link: createHttpLink({
@@ -24,12 +29,12 @@ function createApolloClient() {
   })
 }
 
-export function initializeApollo(
+export const initializeApollo = (
   initialState: any = null
   // Pages with Next.js data fetching methods, like `getStaticProps`, can send
   // a custom context which will be used by `SchemaLink` to server render pages
   // context?: ResolverContext
-) {
+) => {
   const _apolloClient = apolloClient ?? createApolloClient()
 
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state
@@ -45,7 +50,18 @@ export function initializeApollo(
   return _apolloClient
 }
 
-export function useApollo(initialState: any) {
+export const addApolloState = (
+  client: ApolloClient<NormalizedCacheObject>,
+  pageProps: AppProps["pageProps"]
+) => {
+  if (pageProps?.props) {
+    pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract()
+  }
+
+  return pageProps
+}
+
+export const useApollo = (initialState: any) => {
   const store = useMemo(() => initializeApollo(initialState), [initialState])
   return store
 }

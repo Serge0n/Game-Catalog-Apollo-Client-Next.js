@@ -1,8 +1,4 @@
-import {
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-  NextPage,
-} from "next"
+import { GetServerSidePropsContext, NextPage } from "next"
 import { Box, Typography } from "@mui/material"
 import { StickyHeader } from "../../components"
 import {
@@ -12,7 +8,7 @@ import {
 } from "../../../generated/schema"
 import Head from "next/head"
 import { GameCarousel } from "../../components/GameCarousel"
-import { initializeApollo } from "../../lib/apolloClient"
+import { addApolloState, initializeApollo } from "../../lib/apolloClient"
 
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
@@ -24,18 +20,17 @@ export const getServerSideProps = async (
       variables: { gameId: Number(context?.params?.id) },
     })
 
-    if (!data?.game) return { props: { notFound: true } }
+    if (!data?.game)
+      return addApolloState(client, { props: { notFound: true } })
 
-    return { props: { game: data.game } }
+    return addApolloState(client, { props: { game: data.game } })
   } catch {
-    return { props: { notFound: true } }
+    return addApolloState(client, { props: { notFound: true } })
   }
 }
 
 interface GameProps {
-  game: NonNullable<
-    NonNullable<InferGetServerSidePropsType<typeof getServerSideProps>>["game"]
-  >
+  game: NonNullable<NonNullable<GameQuery>["game"]>
 }
 
 const Game: NextPage<GameProps> = ({ game }) => {
