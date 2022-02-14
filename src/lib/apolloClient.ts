@@ -18,8 +18,6 @@ export type ResolverContext = {
 }
 
 const createApolloClient = () => {
-  console.log(typeof window)
-
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link: createHttpLink({

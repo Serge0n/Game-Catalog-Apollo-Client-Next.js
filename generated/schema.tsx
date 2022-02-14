@@ -21,6 +21,12 @@ export type AgeRating = {
   rating: Scalars['String'];
 };
 
+export type AuthPayload = {
+  __typename?: 'AuthPayload';
+  token: Scalars['String'];
+  user: User;
+};
+
 export type Cover = {
   __typename?: 'Cover';
   image_id: Scalars['String'];
@@ -66,6 +72,25 @@ export type IGame = {
   name: Scalars['String'];
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  login?: Maybe<AuthPayload>;
+  signup?: Maybe<AuthPayload>;
+};
+
+
+export type MutationLoginArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+
+export type MutationSignupArgs = {
+  email: Scalars['String'];
+  name: Scalars['String'];
+  password: Scalars['String'];
+};
+
 export type Platform = {
   __typename?: 'Platform';
   abbreviation: Scalars['String'];
@@ -76,6 +101,7 @@ export type Query = {
   __typename?: 'Query';
   game?: Maybe<Game>;
   games?: Maybe<Array<Maybe<GameListItem>>>;
+  user?: Maybe<User>;
 };
 
 
@@ -106,7 +132,9 @@ export type User = {
   __typename?: 'User';
   email: Scalars['String'];
   id: Scalars['ID'];
+  name: Scalars['String'];
   password: Scalars['String'];
+  token: Scalars['String'];
 };
 
 export type AllGamesQueryVariables = Exact<{
