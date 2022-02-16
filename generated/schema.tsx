@@ -134,8 +134,16 @@ export type User = {
   id: Scalars['ID'];
   name: Scalars['String'];
   password: Scalars['String'];
-  token: Scalars['String'];
 };
+
+export type UserSignupMutationVariables = Exact<{
+  name: Scalars['String'];
+  email: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type UserSignupMutation = { __typename?: 'Mutation', signup?: { __typename?: 'AuthPayload', token: string, user: { __typename?: 'User', id: string } } | null | undefined };
 
 export type AllGamesQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']>;
@@ -155,6 +163,44 @@ export type GameQueryVariables = Exact<{
 export type GameQuery = { __typename?: 'Query', game?: { __typename?: 'Game', id: number, name: string, storyline: string, summary: string, screenshots: Array<{ __typename?: 'Screenshot', image_id: string } | null | undefined> } | null | undefined };
 
 
+export const UserSignupDocument = gql`
+    mutation UserSignup($name: String!, $email: String!, $password: String!) {
+  signup(name: $name, email: $email, password: $password) {
+    token
+    user {
+      id
+    }
+  }
+}
+    `;
+export type UserSignupMutationFn = Apollo.MutationFunction<UserSignupMutation, UserSignupMutationVariables>;
+
+/**
+ * __useUserSignupMutation__
+ *
+ * To run a mutation, you first call `useUserSignupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUserSignupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [userSignupMutation, { data, loading, error }] = useUserSignupMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useUserSignupMutation(baseOptions?: Apollo.MutationHookOptions<UserSignupMutation, UserSignupMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UserSignupMutation, UserSignupMutationVariables>(UserSignupDocument, options);
+      }
+export type UserSignupMutationHookResult = ReturnType<typeof useUserSignupMutation>;
+export type UserSignupMutationResult = Apollo.MutationResult<UserSignupMutation>;
+export type UserSignupMutationOptions = Apollo.BaseMutationOptions<UserSignupMutation, UserSignupMutationVariables>;
 export const AllGamesDocument = gql`
     query AllGames($limit: Int, $platformId: Int, $sortField: String, $sortDir: String) {
   games(

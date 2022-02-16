@@ -3,14 +3,28 @@ import { SyntheticEvent, useState } from "react"
 import { Box, Button, Container, TextField, Tab } from "@mui/material"
 import { TabContext, TabList, TabPanel } from "@mui/lab"
 import Link from "next/link"
+import { useUserSignupMutation } from "../../generated/schema"
 
 type AuthTab = "Sing Up" | "Sing In"
 
 const Auth: NextPage = () => {
   const [value, setValue] = useState<AuthTab>("Sing Up")
 
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [userSignupMutation] = useUserSignupMutation({
+    variables: { name, email, password },
+  })
+
   const handleChange = (_e: SyntheticEvent, newValue: AuthTab) => {
     setValue(newValue)
+  }
+
+  const handleSubmit = async () => {
+    const { data } = await userSignupMutation()
+
+    console.log(data?.signup)
   }
 
   return (
@@ -42,9 +56,31 @@ const Auth: NextPage = () => {
             </TabList>
 
             <TabPanel value="Sing Up">
-              <TextField label="Name" fullWidth required />
-              <TextField label="Email" fullWidth required />
-              <TextField label="Password" type="password" fullWidth required />
+              <TextField
+                label="Name"
+                name="name"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                fullWidth
+                required
+              />
+              <TextField
+                label="Email"
+                name="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                fullWidth
+                required
+              />
+              <TextField
+                label="Password"
+                name="password"
+                type="password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                fullWidth
+                required
+              />
               <Link href="/" passHref>
                 <Button
                   sx={{ my: 1 }}
@@ -52,6 +88,7 @@ const Auth: NextPage = () => {
                   size="large"
                   disableElevation
                   fullWidth
+                  onClick={handleSubmit}
                 >
                   Sing Up
                 </Button>
@@ -59,8 +96,23 @@ const Auth: NextPage = () => {
             </TabPanel>
 
             <TabPanel value="Sing In">
-              <TextField label="Name" fullWidth required />
-              <TextField label="Password" type="password" fullWidth required />
+              <TextField
+                label="Email"
+                name="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                fullWidth
+                required
+              />
+              <TextField
+                label="Password"
+                name="password"
+                type="password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                fullWidth
+                required
+              />
               <Link href="/" passHref>
                 <Button
                   sx={{ my: 1 }}
