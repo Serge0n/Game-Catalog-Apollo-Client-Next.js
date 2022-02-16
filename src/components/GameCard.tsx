@@ -27,7 +27,7 @@ export const GameCard: FC<GameCardProps> = ({ game }) => {
   )
 
   return (
-    <Link href={`/game/${game.id}`}>
+    <Link href={`/game/${game.id}`} passHref>
       <ImageListItem sx={{ overflow: "hidden" }}>
         <CardMedia
           component="img"

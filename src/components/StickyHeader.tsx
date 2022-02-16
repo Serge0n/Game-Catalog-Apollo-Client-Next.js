@@ -11,7 +11,7 @@ export const StickyHeader: FC = () => {
     <>
       <AppBar position="fixed" component="nav">
         <Toolbar>
-          <Link href="/">
+          <Link href="/" passHref>
             <Button>
               <Image
                 src={logo}
@@ -24,19 +24,19 @@ export const StickyHeader: FC = () => {
           </Link>
 
           <Typography variant="h6" component="div">
-            <Link href="/">
+            <Link href="/" passHref>
               <Button color="inherit">Discovery</Button>
             </Link>
           </Typography>
 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Link href="/">
+            <Link href="/" passHref>
               <Button color="inherit">My Games</Button>
             </Link>
           </Typography>
 
           <Typography variant="h6" component="div">
-            <Link href="/auth">
+            <Link href="/auth" passHref>
               <Button color="inherit">Login</Button>
             </Link>
           </Typography>

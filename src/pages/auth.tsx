@@ -45,7 +45,7 @@ const Auth: NextPage = () => {
               <TextField label="Name" fullWidth required />
               <TextField label="Email" fullWidth required />
               <TextField label="Password" type="password" fullWidth required />
-              <Link href="/">
+              <Link href="/" passHref>
                 <Button
                   sx={{ my: 1 }}
                   variant="contained"
@@ -61,7 +61,7 @@ const Auth: NextPage = () => {
             <TabPanel value="Sing In">
               <TextField label="Name" fullWidth required />
               <TextField label="Password" type="password" fullWidth required />
-              <Link href="/">
+              <Link href="/" passHref>
                 <Button
                   sx={{ my: 1 }}
                   variant="contained"
