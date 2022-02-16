@@ -3,7 +3,10 @@ import { SyntheticEvent, useState } from "react"
 import { Box, Button, Container, TextField, Tab } from "@mui/material"
 import { TabContext, TabList, TabPanel } from "@mui/lab"
 import Link from "next/link"
-import { useUserSignupMutation } from "../../generated/schema"
+import {
+  useUserSignInMutation,
+  useUserSignUpMutation,
+} from "../../generated/schema"
 
 type AuthTab = "Sing Up" | "Sing In"
 
@@ -13,18 +16,26 @@ const Auth: NextPage = () => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [userSignupMutation] = useUserSignupMutation({
+  const [userSignUpMutation] = useUserSignUpMutation({
     variables: { name, email, password },
+  })
+
+  const [userSignInMutation] = useUserSignInMutation({
+    variables: { email, password },
   })
 
   const handleChange = (_e: SyntheticEvent, newValue: AuthTab) => {
     setValue(newValue)
   }
 
-  const handleSubmit = async () => {
-    const { data } = await userSignupMutation()
-
-    console.log(data?.signup)
+  const handleSubmit = async (type: AuthTab) => {
+    if (type === "Sing Up") {
+      const { data } = await userSignUpMutation()
+      console.log(data)
+    } else {
+      const { data } = await userSignInMutation()
+      console.log(data)
+    }
   }
 
   return (
@@ -88,7 +99,7 @@ const Auth: NextPage = () => {
                   size="large"
                   disableElevation
                   fullWidth
-                  onClick={handleSubmit}
+                  onClick={() => handleSubmit("Sing Up")}
                 >
                   Sing Up
                 </Button>
@@ -118,6 +129,7 @@ const Auth: NextPage = () => {
                   sx={{ my: 1 }}
                   variant="contained"
                   size="large"
+                  onClick={() => handleSubmit("Sing In")}
                   disableElevation
                   fullWidth
                 >
