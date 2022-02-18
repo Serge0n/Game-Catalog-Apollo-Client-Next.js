@@ -1,13 +1,12 @@
 import { GetServerSidePropsContext, NextPage } from "next"
 import { Box, Typography } from "@mui/material"
-import { StickyHeader } from "../../components"
+import { StickyHeader, GameCarousel } from "../../components"
 import {
   GameQuery,
   GameQueryVariables,
   GameDocument,
 } from "../../../generated/schema"
 import Head from "next/head"
-import { GameCarousel } from "../../components/GameCarousel"
 import { addApolloState, initializeApollo } from "../../lib/apolloClient"
 
 export const getServerSideProps = async (

@@ -12,7 +12,6 @@ type AuthTab = "Sing Up" | "Sing In"
 
 const Auth: NextPage = () => {
   const [value, setValue] = useState<AuthTab>("Sing Up")
-
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -31,10 +30,10 @@ const Auth: NextPage = () => {
   const handleSubmit = async (type: AuthTab) => {
     if (type === "Sing Up") {
       const { data } = await userSignUpMutation()
-      console.log(data)
+      localStorage.setItem("token", data?.signUp?.token || "")
     } else {
       const { data } = await userSignInMutation()
-      console.log(data)
+      localStorage.setItem("token", data?.signIn?.token || "")
     }
   }
 
