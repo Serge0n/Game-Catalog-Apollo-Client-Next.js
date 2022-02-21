@@ -1,0 +1,80 @@
+type AgeRating {
+  category: String!
+  rating: String!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+type Cover {
+  image_id: String!
+}
+
+type Game implements IGame {
+  id: Int!
+  name: String!
+  screenshots: [Screenshot]!
+  storyline: String!
+  summary: String!
+}
+
+type GameEngine {
+  name: String!
+}
+
+type GameListItem implements IGame {
+  cover: Cover!
+  first_release_date: Int!
+  id: Int!
+  name: String!
+  slug: String!
+  total_rating: Float
+}
+
+type GameMode {
+  name: String!
+}
+
+type Genre {
+  id: Int!
+  name: String!
+}
+
+interface IGame {
+  id: Int!
+  name: String!
+}
+
+type Mutation {
+  signIn(email: String!, password: String!): AuthPayload
+  signUp(email: String!, name: String!, password: String!): AuthPayload
+}
+
+type Platform {
+  abbreviation: String!
+  id: Int!
+}
+
+type Query {
+  game(id: Int): Game
+  games(limit: Int, platformId: Int, sortDir: String, sortField: String): [GameListItem]
+  user: User
+}
+
+type ReleaseDate {
+  date: String!
+  platform: String!
+}
+
+type Screenshot {
+  image_id: String!
+}
+
+type User {
+  email: String!
+  id: ID!
+  name: String!
+  password: String!
+}

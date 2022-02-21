@@ -7,3 +7,6 @@ generates:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-apollo"
+  generated/schema.graphql:
+    plugins:
+      - schema-ast
