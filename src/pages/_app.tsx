@@ -7,7 +7,7 @@ import "../../styles/globals.css"
 import { useApollo } from "../lib/apolloClient"
 
 const App: NextPage<AppProps> = ({ Component, pageProps }) => {
-  const apolloClient = useApollo(pageProps.initialApolloState)
+  const apolloClient = useApollo(pageProps)
 
   return (
     <ApolloProvider client={apolloClient}>
